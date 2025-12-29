@@ -1,5 +1,0 @@
-1. DAFTAR JOKI GAME dibuat 10 list & ada tombol untuk liat next/prev
-2. Detail Game Joki dibuat list berisi nama game dan harga
-3. Detail item joki tetap
-4. admin bisa add, edit,delete & read transaksi berdasarkan username di discord 
-
