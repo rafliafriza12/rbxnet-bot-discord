@@ -189,7 +189,8 @@ export default {
           });
         }
 
-        const itemsPerPage = 10;
+        // Max 8 game per halaman (8 game embeds + 1 header + 1 footer = 10 embeds, limit Discord)
+        const itemsPerPage = 8;
         const totalPages = Math.ceil(games.length / itemsPerPage);
         const currentPage = 1;
 

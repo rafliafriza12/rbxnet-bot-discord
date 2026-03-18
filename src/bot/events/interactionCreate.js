@@ -25,7 +25,7 @@ export default {
       } catch (error) {
         console.error(
           `Error executing slash command ${interaction.commandName}:`,
-          error
+          error,
         );
 
         const errorMessage = {
@@ -53,6 +53,9 @@ export default {
           const action = parts[2]; // "first", "prev", "next", "last", "back"
 
           const games = await Joki.find().sort({ gameName: 1 });
+          // 8 game per halaman (8 embeds + header + footer = 10, limit Discord)
+          // 10 item per halaman (ditampilkan dalam 1 embed field)
+          const gamesPerPage = 8;
           const itemsPerPage = 10;
 
           // Handle kembali ke daftar item dari detail item
@@ -67,7 +70,7 @@ export default {
               gameNumber,
               currentPage,
               totalPages,
-              itemsPerPage
+              itemsPerPage,
             );
             const components =
               totalPages > 1
@@ -76,7 +79,7 @@ export default {
                       currentPage,
                       totalPages,
                       "items",
-                      gameNumber.toString()
+                      gameNumber.toString(),
                     ),
                   ]
                 : [];
@@ -89,7 +92,7 @@ export default {
 
           // Handle pagination untuk daftar game
           if (type === "games") {
-            const totalPages = Math.ceil(games.length / itemsPerPage);
+            const totalPages = Math.ceil(games.length / gamesPerPage);
             let currentPage = 1;
 
             if (action === "first") {
@@ -108,7 +111,7 @@ export default {
               games,
               currentPage,
               totalPages,
-              itemsPerPage
+              gamesPerPage,
             );
             const components =
               totalPages > 1
@@ -148,7 +151,7 @@ export default {
               gameNumber,
               currentPage,
               totalPages,
-              itemsPerPage
+              itemsPerPage,
             );
             const components =
               totalPages > 1
@@ -157,7 +160,7 @@ export default {
                       currentPage,
                       totalPages,
                       "items",
-                      gameNumber.toString()
+                      gameNumber.toString(),
                     ),
                   ]
                 : [];
@@ -186,7 +189,7 @@ export default {
 
           const ITEMS_PER_PAGE = 10;
           const isUserAdmin = interaction.member.permissions.has(
-            PermissionFlagsBits.Administrator
+            PermissionFlagsBits.Administrator,
           );
 
           let query = {};
@@ -211,7 +214,7 @@ export default {
           const allTransaksi = await Transaksi.find(query);
           const totalHarga = allTransaksi.reduce(
             (sum, trx) => sum + trx.price,
-            0
+            0,
           );
 
           let currentPage = currentPageFromId;
@@ -233,7 +236,7 @@ export default {
             totalPages,
             totalItems,
             totalHarga,
-            displayUser
+            displayUser,
           );
 
           const components =
@@ -242,7 +245,7 @@ export default {
                   createTransaksiPaginationButtons(
                     currentPage,
                     totalPages,
-                    targetUserId
+                    targetUserId,
                   ),
                 ]
               : [];
@@ -264,7 +267,7 @@ export default {
       if (customId.startsWith("trx_delete_")) {
         try {
           const isUserAdmin = interaction.member.permissions.has(
-            PermissionFlagsBits.Administrator
+            PermissionFlagsBits.Administrator,
           );
           if (!isUserAdmin) {
             return interaction.reply({
