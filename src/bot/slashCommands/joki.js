@@ -13,7 +13,7 @@ export function createGameListEmbeds(
   games,
   currentPage,
   totalPages,
-  itemsPerPage
+  itemsPerPage,
 ) {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = Math.min(startIndex + itemsPerPage, games.length);
@@ -25,7 +25,7 @@ export function createGameListEmbeds(
   const headerEmbed = new EmbedBuilder()
     .setTitle("🎮 DAFTAR JOKI GAME TERSEDIA")
     .setDescription(
-      "═══════════════════════════════\n\n💡 Ketik `/joki nomor:<angka>` untuk melihat detail game"
+      "═══════════════════════════════\n\n💡 Ketik `/joki nomor:<angka>` untuk melihat detail game",
     )
     .setColor("#00ff00");
 
@@ -45,7 +45,7 @@ export function createGameListEmbeds(
       .setDescription(
         `👤 **Developer:** ${
           game.developer || "Unknown"
-        }\n📦 **Paket tersedia:** ${itemCount} paket`
+        }\n📦 **Paket tersedia:** ${itemCount} paket`,
       );
 
     if (game.imgUrl) {
@@ -74,7 +74,7 @@ export function createGameDetailEmbed(
   gameNumber,
   currentPage,
   totalPages,
-  itemsPerPage
+  itemsPerPage,
 ) {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = Math.min(startIndex + itemsPerPage, game.item.length);
@@ -127,7 +127,7 @@ export function createPaginationButtons(
   currentPage,
   totalPages,
   type,
-  extraData = ""
+  extraData = "",
 ) {
   const row = new ActionRowBuilder();
 
@@ -146,7 +146,7 @@ export function createPaginationButtons(
       .setCustomId(`joki_${type}_next_${currentPage}_${extraData}`)
       .setLabel("next ▶️")
       .setStyle(ButtonStyle.Primary)
-      .setDisabled(currentPage === totalPages)
+      .setDisabled(currentPage === totalPages),
   );
 
   return row;
@@ -160,17 +160,17 @@ export default {
       option
         .setName("nomor")
         .setDescription(
-          "Nomor urutan game (kosongkan untuk melihat daftar game)"
+          "Nomor urutan game (kosongkan untuk melihat daftar game)",
         )
-        .setRequired(false)
+        .setRequired(false),
     )
     .addIntegerOption((option) =>
       option
         .setName("item")
         .setDescription(
-          "Nomor urutan item (kosongkan untuk melihat daftar item)"
+          "Nomor urutan item (kosongkan untuk melihat daftar item)",
         )
-        .setRequired(false)
+        .setRequired(false),
     ),
 
   async execute(interaction) {
@@ -197,7 +197,7 @@ export default {
           games,
           currentPage,
           totalPages,
-          itemsPerPage
+          itemsPerPage,
         );
         const components =
           totalPages > 1
@@ -229,7 +229,7 @@ export default {
             .setDescription(
               `👤 **Developer:** ${
                 game.developer || "Unknown"
-              }\n\n❌ Tidak ada item tersedia untuk game ini.`
+              }\n\n❌ Tidak ada item tersedia untuk game ini.`,
             )
             .setColor("#0099ff")
             .setTimestamp();
@@ -253,7 +253,7 @@ export default {
           gameNumber,
           currentPage,
           totalPages,
-          itemsPerPage
+          itemsPerPage,
         );
         const components =
           totalPages > 1
@@ -262,7 +262,7 @@ export default {
                   currentPage,
                   totalPages,
                   "items",
-                  gameNumber.toString()
+                  gameNumber.toString(),
                 ),
               ]
             : [];
@@ -293,12 +293,12 @@ export default {
       const priceFormatted = item.price.toLocaleString("id-ID");
 
       const embed = new EmbedBuilder()
-        .setTitle(`📦 ${item.itemName}`)
+        .setTitle(`�� ${item.itemName}`)
         .setDescription(`Item dari game **${game.gameName}**`)
         .setColor("#ff9900")
         .addFields(
           { name: "💰 Harga", value: `Rp ${priceFormatted}`, inline: true },
-          { name: "🎮 Game", value: game.gameName, inline: true }
+          { name: "🎮 Game", value: game.gameName, inline: true },
         )
         .setTimestamp();
 
@@ -333,7 +333,7 @@ export default {
         new ButtonBuilder()
           .setCustomId(`joki_back_to_game_${gameNumber}`)
           .setLabel("⬅️ Kembali ke Daftar Item")
-          .setStyle(ButtonStyle.Secondary)
+          .setStyle(ButtonStyle.Secondary),
       );
 
       return interaction.reply({

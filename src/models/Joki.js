@@ -8,7 +8,7 @@ const JokiItemSchema = new mongoose.Schema({
   },
   imgUrl: {
     type: String,
-    required: true,
+    default: "",
   },
   price: {
     type: Number,
@@ -17,20 +17,18 @@ const JokiItemSchema = new mongoose.Schema({
   },
   description: {
     type: String,
-    required: true,
+    default: "",
     trim: true,
   },
   syaratJoki: [
     {
       type: String,
-      required: true,
       trim: true,
     },
   ],
   prosesJoki: [
     {
       type: String,
-      required: true,
       trim: true,
     },
   ],
@@ -45,7 +43,7 @@ const JokiSchema = new mongoose.Schema(
     },
     imgUrl: {
       type: String,
-      required: true,
+      default: "",
     },
     developer: {
       type: String,
@@ -63,7 +61,7 @@ const JokiSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 // Add indexes
