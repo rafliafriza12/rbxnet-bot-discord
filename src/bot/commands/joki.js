@@ -78,11 +78,6 @@ export default {
       },
       fields: [
         {
-          name: "🏢 Developer",
-          value: joki.developer || "Unknown",
-          inline: true,
-        },
-        {
           name: "📦 Jumlah Paket",
           value: `${joki.item?.length || 0} paket`,
           inline: true,

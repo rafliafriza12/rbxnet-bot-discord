@@ -43,9 +43,7 @@ export function createGameListEmbeds(
         iconURL: game.imgUrl || undefined,
       })
       .setDescription(
-        `👤 **Developer:** ${
-          game.developer || "Unknown"
-        }\n📦 **Paket tersedia:** ${itemCount} paket`,
+        `\n📦 **Paket tersedia:** ${itemCount} paket`,
       );
 
     if (game.imgUrl) {
