@@ -14,7 +14,7 @@ function isAdmin(member) {
 
 // Helper: ambil semua game sorted (konsisten dengan /joki)
 async function getAllGames() {
-  return Joki.find().sort({ gameName: 1 });
+  return Joki.find().sort({ createdAt: 1 });
 }
 
 // Helper: ambil game berdasarkan nomor urutan
@@ -141,14 +141,13 @@ export default {
             .addIntegerOption((o) =>
               o
                 .setName("nomor")
-                .setDescription("Nomor urutan game (lihat di /jokiadmin game list)")
+                .setDescription(
+                  "Nomor urutan game (lihat di /jokiadmin game list)",
+                )
                 .setRequired(true),
             )
             .addStringOption((o) =>
-              o
-                .setName("nama")
-                .setDescription("Nama baru")
-                .setRequired(false),
+              o.setName("nama").setDescription("Nama baru").setRequired(false),
             )
             .addStringOption((o) =>
               o
@@ -209,10 +208,7 @@ export default {
                 .setRequired(true),
             )
             .addStringOption((o) =>
-              o
-                .setName("nama")
-                .setDescription("Nama item")
-                .setRequired(true),
+              o.setName("nama").setDescription("Nama item").setRequired(true),
             )
             .addIntegerOption((o) =>
               o
@@ -262,10 +258,7 @@ export default {
                 .setRequired(true),
             )
             .addStringOption((o) =>
-              o
-                .setName("nama")
-                .setDescription("Nama baru")
-                .setRequired(false),
+              o.setName("nama").setDescription("Nama baru").setRequired(false),
             )
             .addIntegerOption((o) =>
               o
@@ -375,7 +368,9 @@ async function handleGameList(interaction) {
 
   const embed = new EmbedBuilder()
     .setTitle("🔒 Daftar Game Joki (Admin)")
-    .setDescription("Gunakan **nomor** untuk edit/hapus game\n═══════════════════════════════")
+    .setDescription(
+      "Gunakan **nomor** untuk edit/hapus game\n═══════════════════════════════",
+    )
     .setColor("#0099ff")
     .setTimestamp();
 
@@ -386,7 +381,9 @@ async function handleGameList(interaction) {
   });
 
   embed.addFields({ name: "📋 Game", value: list });
-  embed.setFooter({ text: `Total ${games.length} game • /jokiadmin game edit nomor:<angka>` });
+  embed.setFooter({
+    text: `Total ${games.length} game • /jokiadmin game edit nomor:<angka>`,
+  });
 
   return interaction.reply({ embeds: [embed], flags: MessageFlags.Ephemeral });
 }
@@ -412,15 +409,25 @@ async function handleGameTambah(interaction) {
   }
 
   const caraPesan = caraPesanRaw
-    ? caraPesanRaw.split("|").map((c) => c.trim()).filter(Boolean)
+    ? caraPesanRaw
+        .split("|")
+        .map((c) => c.trim())
+        .filter(Boolean)
     : [];
 
-  const game = new Joki({ gameName: nama, developer, imgUrl, caraPesan, item: [] });
+  const game = new Joki({
+    gameName: nama,
+    developer,
+    imgUrl,
+    caraPesan,
+    item: [],
+  });
   await game.save();
 
   // Cari nomor urutan baru
   const games = await getAllGames();
-  const nomor = games.findIndex((g) => g._id.toString() === game._id.toString()) + 1;
+  const nomor =
+    games.findIndex((g) => g._id.toString() === game._id.toString()) + 1;
 
   const embed = createGameEmbed(game, nomor, "✅ Game Berhasil Ditambahkan!");
   return interaction.editReply({ embeds: [embed] });
@@ -448,7 +455,10 @@ async function handleGameEdit(interaction) {
   if (nama) game.gameName = nama;
   if (developer) game.developer = developer;
   if (caraPesanRaw) {
-    game.caraPesan = caraPesanRaw.split("|").map((c) => c.trim()).filter(Boolean);
+    game.caraPesan = caraPesanRaw
+      .split("|")
+      .map((c) => c.trim())
+      .filter(Boolean);
   }
 
   if (gambar) {
@@ -467,7 +477,8 @@ async function handleGameEdit(interaction) {
 
   // Nomor bisa berubah kalau nama diganti (karena sort abjad), cari ulang
   const updatedGames = await getAllGames();
-  const newNomor = updatedGames.findIndex((g) => g._id.toString() === game._id.toString()) + 1;
+  const newNomor =
+    updatedGames.findIndex((g) => g._id.toString() === game._id.toString()) + 1;
 
   const embed = createGameEmbed(game, newNomor, "✅ Game Berhasil Diupdate!");
   return interaction.editReply({ embeds: [embed] });
@@ -525,7 +536,9 @@ async function handleItemList(interaction) {
 
   const embed = new EmbedBuilder()
     .setTitle(`🔒 Item: ${game.gameName} (Admin)`)
-    .setDescription("Gunakan **nomor** untuk edit/hapus item\n═══════════════════════════════")
+    .setDescription(
+      "Gunakan **nomor** untuk edit/hapus item\n═══════════════════════════════",
+    )
     .setColor("#0099ff")
     .setTimestamp();
 
@@ -577,10 +590,16 @@ async function handleItemTambah(interaction) {
   }
 
   const syaratJoki = syaratRaw
-    ? syaratRaw.split("|").map((s) => s.trim()).filter(Boolean)
+    ? syaratRaw
+        .split("|")
+        .map((s) => s.trim())
+        .filter(Boolean)
     : [];
   const prosesJoki = prosesRaw
-    ? prosesRaw.split("|").map((p) => p.trim()).filter(Boolean)
+    ? prosesRaw
+        .split("|")
+        .map((p) => p.trim())
+        .filter(Boolean)
     : [];
 
   game.item.push({
@@ -595,7 +614,12 @@ async function handleItemTambah(interaction) {
 
   const newItem = game.item[game.item.length - 1];
   const itemNomor = game.item.length;
-  const embed = createItemEmbed(game, newItem, itemNomor, "✅ Item Berhasil Ditambahkan!");
+  const embed = createItemEmbed(
+    game,
+    newItem,
+    itemNomor,
+    "✅ Item Berhasil Ditambahkan!",
+  );
   return interaction.editReply({ embeds: [embed] });
 }
 
@@ -630,12 +654,19 @@ async function handleItemEdit(interaction) {
 
   if (nama) item.itemName = nama;
   if (harga) item.price = harga;
-  if (deskripsi !== null && deskripsi !== undefined) item.description = deskripsi;
+  if (deskripsi !== null && deskripsi !== undefined)
+    item.description = deskripsi;
   if (syaratRaw) {
-    item.syaratJoki = syaratRaw.split("|").map((s) => s.trim()).filter(Boolean);
+    item.syaratJoki = syaratRaw
+      .split("|")
+      .map((s) => s.trim())
+      .filter(Boolean);
   }
   if (prosesRaw) {
-    item.prosesJoki = prosesRaw.split("|").map((p) => p.trim()).filter(Boolean);
+    item.prosesJoki = prosesRaw
+      .split("|")
+      .map((p) => p.trim())
+      .filter(Boolean);
   }
 
   if (gambar) {
@@ -651,7 +682,12 @@ async function handleItemEdit(interaction) {
   }
 
   await game.save();
-  const embed = createItemEmbed(game, item, nomorItem, "✅ Item Berhasil Diupdate!");
+  const embed = createItemEmbed(
+    game,
+    item,
+    nomorItem,
+    "✅ Item Berhasil Diupdate!",
+  );
   return interaction.editReply({ embeds: [embed] });
 }
 

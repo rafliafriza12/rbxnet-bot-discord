@@ -52,7 +52,7 @@ export default {
           const type = parts[1]; // "games" atau "items"
           const action = parts[2]; // "first", "prev", "next", "last", "back"
 
-          const games = await Joki.find().sort({ gameName: 1 });
+          const games = await Joki.find().sort({ createdAt: 1 });
           // 8 game per halaman (8 embeds + header + footer = 10, limit Discord)
           // 10 item per halaman (ditampilkan dalam 1 embed field)
           const gamesPerPage = 8;

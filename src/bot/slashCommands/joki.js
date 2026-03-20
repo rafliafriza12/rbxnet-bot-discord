@@ -178,7 +178,7 @@ export default {
     const itemNumber = interaction.options.getInteger("item");
 
     try {
-      const games = await Joki.find().sort({ gameName: 1 });
+      const games = await Joki.find().sort({ createdAt: 1 });
 
       // Jika tidak ada parameter, tampilkan daftar game
       if (!gameNumber) {
