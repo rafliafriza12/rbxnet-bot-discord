@@ -43,7 +43,9 @@ export function createGameListEmbeds(
         iconURL: game.imgUrl || undefined,
       })
       .setDescription(
-        `\n📦 **Paket tersedia:** ${itemCount} paket`,
+        `👤 **Developer:** ${
+          game.developer || "Unknown"
+        }\n📦 **Paket tersedia:** ${itemCount} paket`,
       );
 
     if (game.imgUrl) {
@@ -89,7 +91,7 @@ export function createGameDetailEmbed(
 
   let description = "";
   if (game.developer) {
-    description += `👤 **Developer:** ${game.developer}\n\n`;
+    description += `👤 **Developer:** ${game.developer}\n`;
   }
   description += `📦 **Total Paket:** ${game.item.length} paket\n`;
   description += `═══════════════════════════════\n\n`;
@@ -109,7 +111,7 @@ export function createGameDetailEmbed(
   });
 
   embed.addFields({
-    name: `📦 Daftar Layanan`,
+    name: `📦 Daftar Item`,
     value: itemList || "Tidak ada item tersedia",
   });
 
@@ -156,7 +158,7 @@ export default {
     .setDescription("Lihat daftar game joki dan detailnya")
     .addIntegerOption((option) =>
       option
-        .setName("game")
+        .setName("nomor")
         .setDescription(
           "Nomor urutan game (kosongkan untuk melihat daftar game)",
         )
@@ -164,7 +166,7 @@ export default {
     )
     .addIntegerOption((option) =>
       option
-        .setName("Layanan")
+        .setName("item")
         .setDescription(
           "Nomor urutan item (kosongkan untuk melihat daftar item)",
         )
@@ -172,8 +174,8 @@ export default {
     ),
 
   async execute(interaction) {
-    const gameNumber = interaction.options.getInteger("game");
-    const itemNumber = interaction.options.getInteger("Layanan");
+    const gameNumber = interaction.options.getInteger("nomor");
+    const itemNumber = interaction.options.getInteger("item");
 
     try {
       const games = await Joki.find().sort({ createdAt: 1 });
