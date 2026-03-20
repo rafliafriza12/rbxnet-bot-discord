@@ -169,8 +169,8 @@ export default {
     ),
 
   async execute(interaction) {
-    const gameNumber = interaction.options.getInteger("nomor");
-    const itemNumber = interaction.options.getInteger("item");
+    const gameNumber = interaction.options.getInteger("game");
+    const itemNumber = interaction.options.getInteger("layanan");
 
     try {
       const games = await Joki.find().sort({ createdAt: 1 });
