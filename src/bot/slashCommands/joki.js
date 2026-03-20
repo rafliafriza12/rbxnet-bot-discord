@@ -153,7 +153,7 @@ export default {
     .setDescription("Lihat daftar game joki dan detailnya")
     .addIntegerOption((option) =>
       option
-        .setName("nomor")
+        .setName("game")
         .setDescription(
           "Nomor urutan game (kosongkan untuk melihat daftar game)",
         )
@@ -161,7 +161,7 @@ export default {
     )
     .addIntegerOption((option) =>
       option
-        .setName("item")
+        .setName("layanan")
         .setDescription(
           "Nomor urutan item (kosongkan untuk melihat daftar item)",
         )
