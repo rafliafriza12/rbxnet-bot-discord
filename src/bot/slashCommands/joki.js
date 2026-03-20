@@ -25,7 +25,7 @@ export function createGameListEmbeds(
   const headerEmbed = new EmbedBuilder()
     .setTitle("🎮 DAFTAR JOKI GAME TERSEDIA")
     .setDescription(
-      "═══════════════════════════════\n\n💡 Ketik `/joki nomor:<angka>` untuk melihat detail game",
+      "═══════════════════════════════\n\n💡 Ketik `/joki game:<angka>` untuk melihat detail game",
     )
     .setColor("#00ff00");
 
@@ -90,7 +90,7 @@ export function createGameDetailEmbed(
   let description = "";
   description += `📦 **Total Paket:** ${game.item.length} paket\n`;
   description += `═══════════════════════════════\n\n`;
-  description += `💡 Ketik \`/joki nomor:${gameNumber} item:<angka>\` untuk detail item`;
+  description += `💡 Ketik \`/joki game:${gameNumber} layanan:<angka>\` untuk detail layanan`;
 
   embed.setDescription(description);
 
@@ -106,7 +106,7 @@ export function createGameDetailEmbed(
   });
 
   embed.addFields({
-    name: `📦 Daftar Item`,
+    name: `📦 Daftar Layanan`,
     value: itemList || "Tidak ada item tersedia",
   });
 
