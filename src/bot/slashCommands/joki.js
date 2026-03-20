@@ -88,9 +88,6 @@ export function createGameDetailEmbed(
   }
 
   let description = "";
-  if (game.developer) {
-    description += `👤 **Developer:** ${game.developer}\n`;
-  }
   description += `📦 **Total Paket:** ${game.item.length} paket\n`;
   description += `═══════════════════════════════\n\n`;
   description += `💡 Ketik \`/joki nomor:${gameNumber} item:<angka>\` untuk detail item`;
