@@ -19,9 +19,7 @@ export default {
       const embeds = jokiList.slice(0, 10).map((joki, index) => ({
         color: 0x5865f2,
         title: `${index + 1}. ${joki.gameName}`,
-        description: `🏢 **Developer:** ${
-          joki.developer
-        }\n📦 **Paket tersedia:** ${joki.item?.length || 0} paket`,
+        description: `📦 **Paket tersedia:** ${joki.item?.length || 0} paket`,
         thumbnail: {
           url: joki.imgUrl,
         },
