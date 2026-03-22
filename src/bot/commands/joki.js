@@ -5,6 +5,10 @@ export default {
   aliases: ["jokigame", "listjoki"],
   description: "Lihat daftar joki game yang tersedia",
   async execute(message, args, client) {
+  // ✅ TARUH DI SINI (PALING ATAS)
+  if (!message.member || !message.member.permissions.has("Administrator")) {
+  return message.reply("❌ Command ini hanya untuk admin server!");
+}
     // Jika tidak ada argumen, tampilkan daftar game dengan gambar masing-masing
     if (!args[0]) {
       const jokiList = await Joki.find().select(
