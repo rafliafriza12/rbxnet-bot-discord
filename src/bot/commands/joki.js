@@ -89,34 +89,7 @@ export default {
       timestamp: new Date(),
     };
 
-    // Buat embed untuk setiap item (max 9 karena 1 untuk main embed, total max 10)
-    const itemEmbeds =
-      joki.item && joki.item.length > 0
-        ? joki.item.slice(0, 9).map((item, index) => ({
-            color: 0x00ff00,
-            title: `📦 ${index + 1}. ${item.itemName}`,
-            thumbnail: {
-              url: item.imgUrl || joki.imgUrl || undefined,
-            },
-            fields: [
-              {
-                name: "💰 Harga",
-                value: formatPrice(item.price),
-                inline: true,
-              },
-              {
-                name: "📝 Deskripsi",
-                value: item.description || "Tidak ada deskripsi",
-                inline: false,
-              },
-            ],
-            footer: {
-              text: `Ketik !jokidetail ${joki.gameName.toLowerCase()} ${
-                index + 1
-              } untuk detail lengkap`,
-            },
-          }))
-        : [];
+    
 
     // Gabungkan semua embeds
     const allEmbeds = [mainEmbed, ...itemEmbeds];
